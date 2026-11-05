@@ -1,8 +1,16 @@
 .env
+.env.*
+!.env.example
 .venv/
 venv/
 __pycache__/
+*.py[cod]
 node_modules/
+.next/
+*.tsbuildinfo
 dist/
 .DS_Store
 .vscode/
+.npm-cache/
+.pip-cache/
+.tmp/
