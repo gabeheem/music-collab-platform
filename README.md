@@ -1,2 +1,11 @@
 # music-collab-platform
-A collaborative platform for music creators that combines GitHub-style project and version management with a short-form music discovery feed. Users can create projects, collaborate on tracks, maintain version histories, exchange feedback, and publish music for others to discover.
+
+GitMusic is a collaborative platform for music creators, with project files,
+version history, and published tracks for listeners to discover.
+
+The frontend uses Angular and TypeScript. The backend uses Node.js and Express.
+PostgreSQL through Supabase and Supabase Auth are planned.
+
+See [the project plan](docs/requirements/project-plan.md) for the requirements
+and work order, and [the backend README](backend/README.md) to run the API.
+The project is still being built; the backend currently provides a health endpoint.
