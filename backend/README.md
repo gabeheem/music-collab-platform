@@ -1,11 +1,11 @@
-# GitMusic backend
+# Backend
 
-Node.js + Express API (JavaScript). This preparation implements process health only.
-Authentication, database access, repositories, uploads, and version history are next.
+Node.js and Express backend for GitMusic. Right now it has a health endpoint.
+Login, project storage, and version history still need to be added.
 
-## Start on Windows PowerShell
+## Run it
 
-Install Node.js 22.9 or newer. From the repository root:
+Use Node.js 22.9 or newer. From the project folder:
 
 ```powershell
 cd backend
@@ -14,42 +14,33 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-On macOS/Linux use `cp .env.example .env` instead of `Copy-Item`.
-Environment settings are loaded automatically. No Supabase credentials are needed yet.
-Stop the server with Ctrl+C.
+On Mac or Linux, use `cp .env.example .env` to copy the file.
+If you already have a `.env`, keep it instead of copying over it.
 
-## Check it
+Open http://localhost:8000/api/health. You should get:
 
-```powershell
-Invoke-RestMethod http://localhost:8000/api/health
+```json
+{"status":"ok"}
 ```
 
-Expected JSON: `{"status":"ok"}`. This checks the server, not database connectivity.
-Unknown routes return HTTP 404 with `{"error":"Route not found"}`.
+`npm run dev` restarts the server when you save changes. Use `npm start` to
+run it without watching files. Stop it with Ctrl+C.
 
-## Run without watch mode
+## Connecting the frontend
 
-```powershell
-npm start
+The API runs at `http://localhost:8000` by default. Set the frontend's API URL
+to that address.
+
+If Angular runs on port 4200, change this line in the backend `.env`:
+
+```env
+FRONTEND_URL=http://localhost:4200
 ```
 
-## Frontend handoff
+Restart the backend after changing `.env`. Use the actual frontend address
+if it runs on a different port. `PORT` sets the backend port.
 
-- API base URL: `http://localhost:8000`.
-- Angular: configure your frontend API base URL as `http://localhost:8000` using Angular configuration.
-- Allowed browser origin defaults to `http://localhost:3000`. For Angular at port 4200, set `FRONTEND_URL=http://localhost:4200` in backend `.env` and restart the backend.
-- Browser check: `fetch("http://localhost:8000/api/health").then(r => r.json())`.
-- CORS controls browser access; it does not replace authentication or repository permissions.
+Each teammate needs to run the backend on their own computer when using localhost.
+Keep `.env` and `node_modules` out of GitHub. The `.env.example` file is safe to share.
 
-## Next implementation tasks
-
-1. Agree on repository, membership, file, commit, snapshot, and branch tables with the database teammate.
-2. Validate Supabase Auth tokens and check repository membership in the API.
-3. Implement repository creation/listing, then private uploads and immutable snapshots.
-4. Demonstrate two commits downloading the correct file versions, with unauthorized access rejected.
-
-Keep API routes in `src/app.js` initially; split routes and services as features grow.
-Keep secrets in backend `.env` and never put privileged credentials in frontend environment variables.
-
-
-
+Next up: agree on the database tables, then add login and project creation.
